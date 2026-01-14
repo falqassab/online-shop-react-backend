@@ -4,6 +4,7 @@ const cors = require('cors');
 const { initializeDatabase } = require('./database/db');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
+const adminRoutes = require('./routes/admin');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use('/uploads', express.static('uploads'));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
