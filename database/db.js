@@ -112,6 +112,26 @@ const initializeDatabase = async () => {
       `);
 
       console.log('PostgreSQL tables ready');
+      
+      // Insert sample products for production (first time only)
+      const products = await db.query('SELECT COUNT(*) as count FROM products');
+      if (products[0].count === '0' || products[0].count === 0) {
+        const sampleProducts = [
+          ['Laptop', 'High-performance laptop for work and gaming', 999.99, 15, 'Electronics', 'https://via.placeholder.com/300x200?text=Laptop'],
+          ['Wireless Mouse', 'Ergonomic wireless mouse with precision tracking', 29.99, 50, 'Electronics', 'https://via.placeholder.com/300x200?text=Mouse'],
+          ['Coffee Maker', 'Automatic coffee maker with timer', 79.99, 20, 'Home Appliances', 'https://via.placeholder.com/300x200?text=Coffee+Maker'],
+          ['Running Shoes', 'Comfortable running shoes for all terrains', 89.99, 30, 'Sports', 'https://via.placeholder.com/300x200?text=Shoes'],
+          ['Backpack', 'Durable backpack with multiple compartments', 49.99, 25, 'Accessories', 'https://via.placeholder.com/300x200?text=Backpack']
+        ];
+
+        for (const product of sampleProducts) {
+          await db.query(
+            'INSERT INTO products (name, description, price, stock, category, image_url) VALUES ($1, $2, $3, $4, $5, $6)',
+            product
+          );
+        }
+        console.log('Sample products inserted into PostgreSQL');
+      }
     } else {
       // SQLite schema
       await db.run(`
