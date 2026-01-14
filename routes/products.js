@@ -75,8 +75,8 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
       });
     }
 
-    // Get image filename if uploaded
-    const image_url = req.file ? `/uploads/products/${req.file.filename}` : null;
+    // Get Cloudinary image URL if uploaded
+    const image_url = req.file ? req.file.path : null;
 
     const product = await Product.create({
       name,
@@ -102,9 +102,9 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
  * @desc    Update a product
  * @access  Private
  */
-router.put('/:id', auth, async (req, res, next) => {
+router.put('/:id', auth, upload.single('image'), async (req, res, next) => {
   try {
-    const { name, description, price, stock, category, image_url } = req.body;
+    const { name, description, price, stock, category } = req.body;
 
     // Check if product exists
     const existingProduct = await Product.findById(req.params.id);
@@ -114,6 +114,9 @@ router.put('/:id', auth, async (req, res, next) => {
         message: 'Product not found'
       });
     }
+
+    // Use new Cloudinary URL if image uploaded, otherwise keep existing
+    const image_url = req.file ? req.file.path : existingProduct.image_url;
 
     const product = await Product.update(req.params.id, {
       name,
