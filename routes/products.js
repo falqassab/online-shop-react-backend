@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const { auth } = require('../middleware/auth');
+const upload = require('../middleware/upload');
 
 /**
  * @route   GET /api/products
@@ -59,12 +60,12 @@ router.get('/:id', async (req, res, next) => {
 
 /**
  * @route   POST /api/products
- * @desc    Create a new product
+ * @desc    Create a new product with image upload
  * @access  Private
  */
-router.post('/', auth, async (req, res, next) => {
+router.post('/', auth, upload.single('image'), async (req, res, next) => {
   try {
-    const { name, description, price, stock, category, image_url } = req.body;
+    const { name, description, price, stock, category } = req.body;
 
     // Validation
     if (!name || !price) {
@@ -73,6 +74,9 @@ router.post('/', auth, async (req, res, next) => {
         message: 'Please provide product name and price'
       });
     }
+
+    // Get image filename if uploaded
+    const image_url = req.file ? `/uploads/products/${req.file.filename}` : null;
 
     const product = await Product.create({
       name,
