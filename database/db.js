@@ -122,11 +122,11 @@ const initializeDatabase = async () => {
         if (count === 0) {
           console.log('Inserting sample products...');
           const sampleProducts = [
-            ['Laptop', 'High-performance laptop for work and gaming', 999.99, 15, 'Electronics', 'https://via.placeholder.com/300x200?text=Laptop'],
-            ['Wireless Mouse', 'Ergonomic wireless mouse with precision tracking', 29.99, 50, 'Electronics', 'https://via.placeholder.com/300x200?text=Mouse'],
-            ['Coffee Maker', 'Automatic coffee maker with timer', 79.99, 20, 'Home Appliances', 'https://via.placeholder.com/300x200?text=Coffee+Maker'],
-            ['Running Shoes', 'Comfortable running shoes for all terrains', 89.99, 30, 'Sports', 'https://via.placeholder.com/300x200?text=Shoes'],
-            ['Backpack', 'Durable backpack with multiple compartments', 49.99, 25, 'Accessories', 'https://via.placeholder.com/300x200?text=Backpack']
+            ['Laptop', 'High-performance laptop for work and gaming', 999.99, 15, 'Electronics', 'https://placehold.co/300x200/3498db/white?text=Laptop'],
+            ['Wireless Mouse', 'Ergonomic wireless mouse with precision tracking', 29.99, 50, 'Electronics', 'https://placehold.co/300x200/2ecc71/white?text=Mouse'],
+            ['Coffee Maker', 'Automatic coffee maker with timer', 79.99, 20, 'Home Appliances', 'https://placehold.co/300x200/e74c3c/white?text=Coffee+Maker'],
+            ['Running Shoes', 'Comfortable running shoes for all terrains', 89.99, 30, 'Sports', 'https://placehold.co/300x200/f39c12/white?text=Shoes'],
+            ['Backpack', 'Durable backpack with multiple compartments', 49.99, 25, 'Accessories', 'https://placehold.co/300x200/9b59b6/white?text=Backpack']
           ];
 
           for (const product of sampleProducts) {
